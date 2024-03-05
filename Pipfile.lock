@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "adee8902f49de9f66aab617746a6316b31a2de748f89c60235bb7caf5185fc2a"
+            "sha256": "eecfed74531c1ac6c4166227662d5c469838074ac8fd22aee3e7d5aa67c71b5e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,11 +18,11 @@
     "default": {
         "certifi": {
             "hashes": [
-                "sha256:0569859f95fc761b18b45ef421b1290a0f65f147e92a1e5eb3e635f9a5e4e66f",
-                "sha256:dc383c07b76109f368f6106eee2b593b04a011ea4d55f652c6ca24a754d1cdd1"
+                "sha256:9b469f3a900bf28dc19b8cfbf8019bf47f7fdd1a65a1d4ffb98fc14166beb4d1",
+                "sha256:e036ab49d5b79556f99cfc2d9320b34cfbe5be05c5871b51de9329f0603b0474"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==2024.2.2"
+            "version": "==2023.11.17"
         },
         "charset-normalizer": {
             "hashes": [
@@ -128,6 +128,15 @@
             "markers": "python_version >= '3.5'",
             "version": "==3.6"
         },
+        "nba-api": {
+            "hashes": [
+                "sha256:1c936c0d48ffbb91fec1a345f703254125269e9ec001b733200de82aa793762e",
+                "sha256:dc421ed4a6fa5928cb4b26a4fa473d29c4f83866274b2bb86bc841e9508592a2"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8' and python_version < '4.0'",
+            "version": "==1.4.1"
+        },
         "numpy": {
             "hashes": [
                 "sha256:03a8c78d01d9781b28a6989f6fa1bb2c4f2d51201cf99d3dd875df6fbd96b23b",
@@ -167,7 +176,8 @@
                 "sha256:f870204a840a60da0b12273ef34f7051e98c3b5961b61b0c2c1be6dfd64fbcd3",
                 "sha256:ffa75af20b44f8dba823498024771d5ac50620e6915abac414251bd971b4529f"
             ],
-            "markers": "python_version == '3.11'",
+            "index": "pypi",
+            "markers": "python_version >= '3.9'",
             "version": "==1.26.4"
         },
         "pandas": {
