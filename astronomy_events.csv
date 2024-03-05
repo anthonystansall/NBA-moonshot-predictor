@@ -1,0 +1,2 @@
+date,body_id,body_name,distance_fromEarth_au,distance_fromEarth_km,horizontal_position_altitude_degrees,horizontal_position_azimuth_degrees,equatorial_position_right_ascension,equatorial_position_declination,position_constellation_name,elongation,magnitude,phase_string
+2020-12-20T08:00:00.000-05:00,moon,Moon,0.00267,399384.40875,-49.70,57.20,23h 05m 24s,-12.13,Aquarius,73.8003,-9.43699,Waxing Crescent
