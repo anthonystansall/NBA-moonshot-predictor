@@ -220,7 +220,9 @@ def create_team_details_table():
                         owner VARCHAR(100),
                         generalmanager VARCHAR(100),
                         headcoach VARCHAR(100),
-                        dleagueaffiliation VARCHAR(100)
+                        dleagueaffiliation VARCHAR(100),
+                        latitude DOUBLE PRECISION,
+                        longitude DOUBLE PRECISION
                     );
                 """))
                 
@@ -231,6 +233,36 @@ def create_team_details_table():
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
+def create_moon_events_table():
+    db_config = get_database_config()
+    create_table_query = """
+    CREATE TABLE IF NOT EXISTS moon_events (
+        moon_event_id TEXT PRIMARY KEY,
+        date TIMESTAMP,
+        body_id TEXT,
+        body_name TEXT,
+        distance_fromEarth_au DOUBLE PRECISION,
+        distance_fromEarth_km DOUBLE PRECISION,
+        horizontal_position_altitude_degrees DOUBLE PRECISION,
+        horizontal_position_azimuth_degrees DOUBLE PRECISION,
+        equatorial_position_right_ascension TEXT,
+        equatorial_position_declination TEXT,
+        position_constellation_name TEXT,
+        elongation DOUBLE PRECISION,
+        magnitude DOUBLE PRECISION,
+        phase_string TEXT,
+        game_id VARCHAR(15)
+    );
+    """
+    
+    try:
+        with psycopg2.connect(dbname=db_config['dbname'], user=db_config['user'], password=db_config['password'], host=db_config['host']) as conn:
+            with conn.cursor() as cur:
+                cur.execute(create_table_query)
+                print("Table 'moon_events' created successfully.")
+    except psycopg2.Error as e:
+        print(f"Failed to create table 'moon_events': {e}")
+
 def drop_tables():
     db_config = get_database_config()
     try:
@@ -240,6 +272,7 @@ def drop_tables():
                 cur.execute("DROP TABLE IF EXISTS player_game_logs CASCADE;")
                 cur.execute("DROP TABLE IF EXISTS team_game_logs CASCADE;")
                 cur.execute("DROP TABLE IF EXISTS team_details CASCADE;")
+                cur.execute("DROP TABLE IF EXISTS moon_events CASCADE;")
                 print("Tables deleted successfully.")
 
     except psycopg2.Error as e:
@@ -287,6 +320,7 @@ def setup_database():
     create_player_game_logs_table()
     create_team_game_logs_table()
     create_team_details_table()
+    create_moon_events_table()
 
 def wipe_database():
     drop_tables()

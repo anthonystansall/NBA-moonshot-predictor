@@ -1,6 +1,6 @@
 ﻿Sport,Venue,Team(s),Abbreviation,Latitude,Longitude
 NBA,Philips Arena,Atlanta Hawks,ATL,33.75722222,-84.39638889
-NBA,Barclays Center,Brooklyn Nets,BKL,40.68265,-73.97468889
+NBA,Barclays Center,Brooklyn Nets,BKN,40.68265,-73.97468889
 NBA,TD Garden,Boston Celtics,BOS,42.36630278,-71.06222778
 NBA,Time Warner Cable Arena,Charlotte Bobcats,CHA,35.225,-80.83916667
 NBA,United Center,Chicago Bulls,CHI,41.88055556,-87.67416667
@@ -11,13 +11,13 @@ NBA,The Palace of Auburn Hills,Detroit Pistons,DET,42.69694444,-83.24555556
 NBA,Oracle Arena,Golden State Warriors,GSW,37.75027778,-122.2030556
 NBA,Toyota Center,Houston Rockets,HOU,29.75083333,-95.36222222
 NBA,Bankers Life Fieldhouse,Indiana Pacers,IND,39.76388889,-86.15555556
-NBA,Staples Center,Los Angeles Lakers/Los Angeles Clippers,LAL,34.04305556,-118.2672222
 NBA,Staples Center,Los Angeles Lakers/Los Angeles Clippers,LAC,34.04305556,-118.2672222
+NBA,Staples Center,Los Angeles Lakers/Los Angeles Clippers,LAL,34.04305556,-118.2672222
 NBA,FedExForum,Memphis Grizzlies,MEM,35.13833333,-90.05055556
 NBA,American Airlines Arena,Miami Heat,MIA,25.78138889,-80.18805556
 NBA,BMO Harris Bradley Center,Milwaukee Bucks,MIL,43.04361111,-87.91694444
 NBA,Target Center,Minnesota Timberwolves,MIN,44.97944444,-93.27611111
-NBA,New Orleans Arena,New Orleans Hornets,NO,29.94888889,-90.08194444
+NBA,New Orleans Arena,New Orleans Hornets,NOP,29.94888889,-90.08194444
 NBA,Madison Square Garden,New York Knicks,NYK,40.75055556,-73.99361111
 NBA,Chesapeake Energy Arena,Oklahoma City Thunder,OKC,35.46333333,-97.515
 NBA,Amway Center,Orlando Magic,ORL,28.53916667,-81.38361111
@@ -25,7 +25,7 @@ NBA,Wells Fargo Center,Philadelphia 76ers,PHI,39.90111111,-75.17194444
 NBA,US Airways Center,Phoenix Suns,PHX,33.44583333,-112.0713889
 NBA,Rose Garden,Portland Trail Blazers,POR,45.53166667,-122.6666667
 NBA,Sleep Train Arena,Sacramento Kings,SAC,38.64916667,-121.5180556
-NBA,AT&T Center,San Antonio Spurs,SAN,29.42694444,-98.4375
+NBA,AT&T Center,San Antonio Spurs,SAS,29.42694444,-98.4375
+NBA,Scotiabank Arena,Toronto Rapters,TOR,43.642549,-79.3812204
 NBA,EnergySolutions Arena,Utah Jazz,UTA,40.76833333,-111.9011111
 NBA,Verizon Center,Washington Wizards,WAS,38.89805556,-77.02083333
-NBA,Scotiabank Arena,Toronto Rapters,TOR,43.642549,-79.3812204
