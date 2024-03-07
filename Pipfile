@@ -8,6 +8,8 @@ requests = "*"
 pandas = "*"
 nba-api = "*"
 numpy = "*"
+sqlalchemy = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 

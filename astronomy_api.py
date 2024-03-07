@@ -1,8 +1,7 @@
 import configparser
 import base64
 import requests
-import pandas as pd
-import sqlite3
+from db.db_connection import save_data_to_db
 
 def get_credentials():
     config = configparser.ConfigParser()
@@ -61,25 +60,13 @@ def process_moon_data(data):
                 'phase_string': position.get('extraInfo', {}).get('phase', {}).get('string')
             }
             events.append(event)
-    return pd.DataFrame(events)
-
-def save_to_sqlite(df, db_name="NBA_Moonshot.db", table_name="moon_events"):
-    conn = sqlite3.connect(db_name)
-    df.to_sql(table_name, conn, if_exists='append', index=False)
-    conn.close()
-    print(f"Data saved to {table_name} in {db_name}.")
+    return events
 
 def main():
-    all_events = []
     data = fetch_moon_data()
     if data:
-        df = process_moon_data(data)
-        all_events.append(df)
-    
-    if all_events:
-        final_df = pd.concat(all_events, ignore_index=True)
-        print(final_df)
-        # final_df.to_csv('astronomy_events.csv', index=False)
+        events_json = process_moon_data(data)
+        save_data_to_db(events_json, "moon_events_table")
 
 if __name__ == "__main__":
     main()
