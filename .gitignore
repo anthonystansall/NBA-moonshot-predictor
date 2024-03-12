@@ -1,1 +1,3 @@
-config.ini
+api_credentials.ini
+db_credentials.ini
+*.json

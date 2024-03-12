@@ -1,0 +1,52 @@
+nba_moonshot_predictor/
+│
+├── data_pipeline/
+│   ├── __init__.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── astro_client.py
+│   │   └── nba_client.py
+│   ├── config/
+│   │   ├── api_credientials.ini
+│   │   └── db_credentials.ini
+│   ├── data/
+│   │   ├── json/ (Used to store API json data)
+│   │   └── nba_arena_location_data.csv
+│   ├── database/
+│   │   ├── __init__.py
+│   │   ├── queries.py
+│   │   ├── schema.py
+│   │   └── setup.py
+│   └── utils/
+│       ├── __init__.py
+│       └── utils.py
+│
+├── data_processing/ (in_progress)
+│   ├── collect_data.py
+│   ├── clean_data.py
+│   ├── explore_data.py
+│   └── feature_engineering.py
+│
+├── model/ (in_progress)
+│   ├── model_selection.py
+│   ├── train_model.py
+│   ├── evaluate_model.py
+│   └── model_utils.py
+│
+├── deployment/ (in_progress)
+│   ├── deploy_model.py
+│   └── model_api.py
+│
+├── web_app/ (in_progress)
+│   ├── app/
+│   │   ├── templates/
+│   │   ├── static/
+│   │   └── __init__.py
+│   ├── run.py
+│   └── config.py
+│
+├── notebooks/ (in_progress)
+│   ├── eda.ipynb
+│   └── model_experiments.ipynb
+│
+├── main.py
