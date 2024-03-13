@@ -1,7 +1,10 @@
-"""
-Defines database schemas for NBA and Moon related data.
+"""Module that defines the database schemas.
+
+This module defines the database schemas for storing NBA player and game logs,
+team details, and moon event data.
 """
 
+# Define schema for player_game_logs table
 PLAYER_GAME_LOGS_TABLE = {
     'table_name': 'player_game_logs',
     'table_creation_sql': """
@@ -79,6 +82,7 @@ PLAYER_GAME_LOGS_TABLE = {
     """
 }
 
+# Define schema for team_game_logs table.
 TEAM_GAME_LOGS_TABLE = {
     'table_name': 'team_game_logs',
     'table_creation_sql': """
@@ -145,6 +149,7 @@ TEAM_GAME_LOGS_TABLE = {
     """
 }
 
+# Define schema for team_details table.
 TEAM_DETAILS_TABLE = {
     'table_name': 'team_details',
     'table_creation_sql': """
@@ -166,6 +171,7 @@ TEAM_DETAILS_TABLE = {
     """
 }
 
+# Define schema for moon_events table.
 MOON_EVENTS_TABLE = {
     'table_name': 'moon_events',
     'table_creation_sql': """
@@ -191,7 +197,7 @@ MOON_EVENTS_TABLE = {
     """
 }
 
-
+# Aggregate all table schemas for easy reference.
 ALL_TABLE_SCHEMAS = [
     PLAYER_GAME_LOGS_TABLE,
     TEAM_GAME_LOGS_TABLE,

@@ -1,87 +1,22 @@
+"""Module for managing database operations.
+
+This module provides functions to create and drop databases and tables,
+leveraging the psycopg2 library for PostgreSQL database interactions.
+It includes functionality for setting up and wiping the database schema,
+based on predefined table schemas.
 """
-This module provides functionalities for setting up, creating, and wiping
-a PostgreSQL database. It includes functions to create and drop both the
-database and its tables based on the provided schemas.
-"""
-import os
-import configparser
-from psycopg2 import connect, sql, Error
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+
+from psycopg2 import sql, Error
+
+from data_pipeline.database import db_connection
 from data_pipeline.database.schema import ALL_TABLE_SCHEMAS
-
-CONFIG_FILE_PATH = os.path.abspath(
-    os.path.join(
-        os.path.dirname(__file__), '..', 'config', 'db_credentials.ini')
-)
-
-
-def get_database_config():
-    """Returns the database configuration parameters."""
-    config = configparser.ConfigParser()
-    if not os.path.exists(CONFIG_FILE_PATH):
-        raise FileNotFoundError(
-            f"Configuration file not found at {CONFIG_FILE_PATH}"
-        )
-
-    config.read(CONFIG_FILE_PATH)
-
-    try:
-        db_config = {
-            'dbname': config.get('PostgreSQL', 'dbname'),
-            'user': config.get('PostgreSQL', 'user'),
-            'password': config.get('PostgreSQL', 'password'),
-            'host': config.get('PostgreSQL', 'host')
-        }
-    except configparser.NoSectionError as e:
-        raise configparser.NoSectionError(
-            "Section 'PostgreSQL' not found in the configuration file."
-        ) from e
-
-    return db_config
-
-
-def connect_to_database(config=None,
-                        admin_db=False,
-                        default_dbname='postgres'
-                        ):
-    """
-    Connects to the PostgreSQL database based on the configuration parameters
-    or connection to the default database for administrative actions such as
-    creating or deleting databases.
-
-    Returns the connection object and the original dbname in the configuration
-    file that can be used for administrative functions.
-    """
-    if config is None:
-        config = get_database_config()
-
-    # Toggle to default database for administrative actions.
-    if admin_db:
-        conn_dbname = default_dbname
-    else:
-        conn_dbname = config.get('dbname')
-
-    config_dbname = config.get('dbname')
-
-    try:
-        conn = connect(
-            dbname=conn_dbname,
-            user=config['user'],
-            password=config['password'],
-            host=config['host']
-        )
-        conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-        return conn, config_dbname
-    except Error as e:
-        print(f"Database connection failed: {e}")
-        return None, None
 
 
 def create_database():
-    """Creates the database from config file."""
+    """Creates a new database if it does not already exist."""
     conn = None
     try:
-        conn, dbname = connect_to_database(admin_db=True)
+        conn, dbname = db_connection.connect_to_database(admin_db=True)
         if conn is None:
             print("Database connection could not be established.")
             return
@@ -109,10 +44,10 @@ def create_database():
 
 
 def drop_database():
-    """Deletes the database from config file."""
+    """Drops the database if it exists."""
     conn = None
     try:
-        conn, dbname = connect_to_database(admin_db=True)
+        conn, dbname = db_connection.connect_to_database(admin_db=True)
         if conn is None:
             print("Database connection could not be established.")
             return
@@ -131,17 +66,21 @@ def drop_database():
             conn.close()
 
 
-def create_table(table):
-    """Create table from provided table schema."""
+def create_table(table_schema):
+    """Creates a table based on the provided schema.
+
+    Args:
+        table_schema: A dictionary containing the table name and creation SQL.
+    """
     conn = None
     try:
-        conn, _ = connect_to_database()
+        conn, _ = db_connection.connect_to_database()
         if conn is None:
             print("Database connection could not be established.")
             return
 
-        table_name = table.get('table_name')
-        table_create_sql = table.get('table_creation_sql')
+        table_name = table_schema.get('table_name')
+        table_create_sql = table_schema.get('table_creation_sql')
         if not table_name or not table_create_sql:
             print("Table schema is missing required information.")
             return
@@ -149,7 +88,6 @@ def create_table(table):
         with conn.cursor() as cur:
             cur.execute(table_create_sql)
             print(f"{table_name} created successfully.")
-
     except Error as e:
         print(f"Failed to create {table_name}: {e}")
     finally:
@@ -157,16 +95,20 @@ def create_table(table):
             conn.close()
 
 
-def drop_table(table):
-    """Drop table from provided table schema."""
+def drop_table(table_schema):
+    """Drops a table based on the provided schema.
+
+    Args:
+        table_schema: A dictionary containing the table name.
+    """
     conn = None
     try:
-        conn, _ = connect_to_database()
+        conn, _ = db_connection.connect_to_database()
         if conn is None:
             print("Database connection could not be established.")
             return
 
-        table_name = table.get('table_name')
+        table_name = table_schema.get('table_name')
         if not table_name:
             print("Table schema does not contain a table name.")
             return
@@ -178,7 +120,6 @@ def drop_table(table):
         with conn.cursor() as cur:
             cur.execute(drop_table_sql)
             print(f"{table_name} dropped successfully.")
-
     except Error as e:
         print(f"Failed to drop '{table_name}': {e}")
     finally:
@@ -187,20 +128,21 @@ def drop_table(table):
 
 
 def setup_database_schema():
-    """Sets up database and all defined tables."""
+    """Sets up the database schema by creating the database and all tables."""
     create_database()
     for table in ALL_TABLE_SCHEMAS:
         create_table(table)
 
 
 def wipe_database_schema():
-    """Wipes the database and all defined tables."""
+    """Wipes the database schema by dropping all tables and the database."""
     for table in ALL_TABLE_SCHEMAS:
         drop_table(table)
     drop_database()
 
 
 if __name__ == "__main__":
-    # Used to test full db setup and tear down.
+    # Example usage: Setup or wipe the database schema.
     setup_database_schema()
+    # To wipe the database schema, uncomment the following line:
     # wipe_database_schema()
