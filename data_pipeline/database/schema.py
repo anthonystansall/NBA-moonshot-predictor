@@ -77,7 +77,8 @@ PLAYER_GAME_LOGS_TABLE = {
         dd2_rank INT,
         td3_rank INT,
         wnba_fantasy_pts_rank INT,
-        available_flag INT
+        available_flag INT,
+        team_id_game_id TEXT
     );
     """
 }

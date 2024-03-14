@@ -111,6 +111,15 @@ def parse_transform_nba_data(response,
             for record in records
         ]
 
+    if resultset_name == 'PlayerGameLogs':
+        headers.append('team_id_game_id')
+        team_id_index = headers.index('team_id')
+        game_id_index = headers.index('game_id')
+        records = [
+            record + [f"{record[team_id_index]}_{record[game_id_index]}"]
+            for record in records
+        ]
+
     if first_primary_key and second_primary_key:
         new_primary_key = f"{first_primary_key}_{second_primary_key}"
         headers.append(new_primary_key.lower())
