@@ -5,7 +5,7 @@ populates the database with player and team logs, team details including
 geographical locations, and moon phase data associated with each game, for
 specified sports seasons.
 """
-from data_pipeline.database import setup
+from data_pipeline.database import setup, queries
 from data_pipeline.data_ingestion import data_ingestion
 
 
@@ -31,6 +31,9 @@ def main():
 
     # Store moon data for each game based on lat and long
     data_ingestion.fetch_and_insert_moon_data()
+
+    # Create csv containing all joined records for analysis
+    queries.create_all_records_all_tables_csv()
 
 
 if __name__ == "__main__":

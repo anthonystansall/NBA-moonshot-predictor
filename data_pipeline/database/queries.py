@@ -12,6 +12,7 @@ from psycopg2 import sql, Error
 from psycopg2.extras import execute_batch
 
 from data_pipeline.database import db_connection
+from data_pipeline.utils import utils
 
 
 def insert_new_data(table_name, primary_key, headers, records):
@@ -226,6 +227,44 @@ def get_records(table_name,
         print(f"Error fetching records: {e}")
         return None
 
+    finally:
+        if conn:
+            conn.close()
+
+
+def create_all_records_all_tables_csv():
+    """Creates a csv containing all joined records from database."""
+    conn = None
+    try:
+        conn, _ = db_connection.connect_to_database()
+        if conn is None:
+            print("Database connection could not be established.")
+            return
+
+        with conn.cursor() as cur:
+            # Directly using table and column names since they are static
+            join_query = """
+                SELECT pgl.*, tgl.*, td.*, me.*
+                FROM player_game_logs pgl
+                FULL OUTER JOIN team_game_logs tgl
+                    ON pgl.team_id_game_id = tgl.team_id_game_id
+                FULL OUTER JOIN team_details td
+                    ON tgl.team_id = td.team_id
+                FULL OUTER JOIN moon_events me
+                    ON tgl.game_id = me.game_id;
+            """
+
+            cur.execute(join_query)
+            records = cur.fetchall()
+
+            columns = [desc[0] for desc in cur.description]
+
+            data = [columns] + records
+
+            utils.save_to_csv(data, "all_nba_moon_data.csv")
+
+    except Error as e:
+        print(f"Error fetching records: {e}")
     finally:
         if conn:
             conn.close()

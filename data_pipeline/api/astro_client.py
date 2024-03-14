@@ -225,7 +225,7 @@ def parse_transform_moon_data(response, game_id_dates):
     """
     print("Processing moon data...")
     game_date_dict = {
-        game_date.strftime('%Y-%m-%dT%H:%M:%S.000-01:00'): game_id
+        game_date.strftime('%Y-%m-%d'): game_id
         for game_id, game_date in game_id_dates
     }
 
@@ -252,8 +252,11 @@ def parse_transform_moon_data(response, game_id_dates):
         body = row.get('body', {})
         for position in row.get('positions', []):
             date_str = position.get('date')
+            date_obj = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S.%f%z')
+            date_key = date_obj.strftime('%Y-%m-%d')
+
             moon_event_id = f"{date_str}_{latitude}_{longitude}"
-            game_id = game_date_dict.get(date_str, 'null')
+            game_id = game_date_dict.get(date_key, 'null')
 
             event_row = [
                 moon_event_id, date_str, latitude, longitude,
