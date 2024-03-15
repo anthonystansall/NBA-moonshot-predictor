@@ -10,6 +10,11 @@ nba-api = "*"
 numpy = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
+notebook = "*"
+matplotlib = "*"
+seaborn = "*"
+scikit-learn = "*"
+xgboost = "*"
 
 [dev-packages]
 

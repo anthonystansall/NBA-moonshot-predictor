@@ -2,3 +2,5 @@ api_credentials.ini
 db_credentials.ini
 *.json
 all_nba_moon_data.csv
+clean_nba_moon_data.csv
+.ipynb_checkpoints
